@@ -32,13 +32,10 @@ public class Title_rich_Spout extends BaseRichSpout {
         outputCollector = spoutOutputCollector;
        // String titleFile= (String)  map.get("fileName");
         linesRead = new AtomicLong(0);
-        try {
-            fis = new FileInputStream("c3TitleSet1.input");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        isr = new InputStreamReader(fis);
-        br = new BufferedReader(isr);
+        InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
+        //fis = new FileInputStream("c3TitleSet1.input");
+       // isr = new InputStreamReader(fis);
+        br = new BufferedReader(new InputStreamReader(input));
 
 
     }
