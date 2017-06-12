@@ -32,7 +32,7 @@ public class Group_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        modelFile =new File(getClass().getResource("group.model.LogReg").getFile());
+        modelFile =new File("/root/group_LogReg.model");
         try {
             classifier= (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {
