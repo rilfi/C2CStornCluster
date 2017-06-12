@@ -23,7 +23,7 @@ public class summa {
         //InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
         System.out.println(getClass().getResource("c3TitleSet1.input").getFile());
        // File modelFile = new File(getClass().getResource("/root/C2CStornCluster/src/main/resources/c3TitleSet1.input").getFile());
-        File modelFile = new File("/root/C2CStornCluster/src/main/resources/c3TitleSet1.input");
+        File modelFile = new File("/root/C2CStornCluster/src/main/resources/mlNERTopology/c3TitleSet1.input");
 
 
         BufferedReader br = new BufferedReader(new FileReader(modelFile));
