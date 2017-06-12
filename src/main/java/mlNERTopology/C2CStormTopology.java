@@ -2,11 +2,13 @@ package mlNERTopology;
 
 
 import org.apache.storm.Config;
+import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.utils.Utils;
 
 public class C2CStormTopology {
   public static void main(String[] args) {
@@ -24,7 +26,7 @@ public class C2CStormTopology {
     Config config = new Config();
     config.setDebug(true);
     config.setNumWorkers(3);
-      try {
+ /*     try {
           StormSubmitter.submitTopology("C2CStormTopology", config, builder.createTopology());
       } catch (AlreadyAliveException e) {
           e.printStackTrace();
@@ -32,14 +34,14 @@ public class C2CStormTopology {
           e.printStackTrace();
       } catch (AuthorizationException e) {
           e.printStackTrace();
-      }
+      }*/
 
 
 
-    /*LocalCluster localCluster = new LocalCluster();
-    localCluster.submitTopology("credit-card-rich_topology", config, builder.createTopology());*/
+    LocalCluster localCluster = new LocalCluster();
+    localCluster.submitTopology("C2CStormTopology", config, builder.createTopology());
 
-/*    Utils.sleep(10000);
-    localCluster.shutdown();*/
+    Utils.sleep(10000);
+    localCluster.shutdown();
   }
 }

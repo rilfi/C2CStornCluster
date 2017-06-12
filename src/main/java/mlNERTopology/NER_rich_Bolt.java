@@ -50,7 +50,7 @@ public class NER_rich_Bolt extends BaseRichBolt {
         Chunking chunking = crfChunker.chunk(row);
         Set<String>brandSet=new HashSet<>();
         Set<String>catSet=new HashSet<>();
-        Map<String,Set<String>> returnMap=new HashMap<>();
+        Map<String,Set<String>> returnMap= (Map<String, Set<String>>) tuple.getValueByField("returnMap");
         for(Chunk el:chunking.chunkSet()){
             int start=el.start();
             int end=el.end();
