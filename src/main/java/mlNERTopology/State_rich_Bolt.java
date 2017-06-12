@@ -34,11 +34,7 @@ public class State_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        try {
-            modelFile =new File(getClass().getResource("state_LogReg.model").toURI());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        modelFile =new File(getClass().getResource("state_LogReg.model").getFile());
 
         //modelFile=input;
 

@@ -34,11 +34,7 @@ public class NER_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        try {
-            modelFile = new File(getClass().getResource("brand_Product_crf.model").toURI());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        modelFile = new File(getClass().getResource("brand_Product_crf.model").getFile());
         try {
             crfChunker= (ChainCrfChunker)AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {
