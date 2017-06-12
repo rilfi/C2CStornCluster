@@ -1,5 +1,6 @@
 package tutorialsPoint;
 
+import org.apache.storm.StormSubmitter;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
 
@@ -25,12 +26,13 @@ public class LogAnalyserStorm {
       builder.setBolt("call-log-counter-bolt", new CallLogCounterBolt())
          .fieldsGrouping("call-log-creator-bolt", new Fields("call"));
 			
-      LocalCluster cluster = new LocalCluster();
+      /*LocalCluster cluster = new LocalCluster();
       cluster.submitTopology("LogAnalyserStorm", config, builder.createTopology());
       Thread.sleep(10000);
 		
       //Stop the topology
 		
-      cluster.shutdown();
+      cluster.shutdown();*/
+      StormSubmitter.submitTopology("Tutorialspoint", config, builder.createTopology());
    }
 }
