@@ -146,7 +146,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>mlNERTopology.C2CStormTopology</mainClass>
+                            <mainClass>mlNERTopology.summa</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

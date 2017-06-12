@@ -20,9 +20,11 @@ public class summa {
     }
     public void doSomething() throws URISyntaxException, IOException {
 
-        InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
+        //InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
+        System.out.println(getClass().getResource("c3TitleSet1.input").getFile());
+        File modelFile = new File(getClass().getResource("c3TitleSet1.input").getFile());
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(input));
+        BufferedReader br = new BufferedReader(new FileReader(modelFile));
         String row;
         int count=0;
         while ((row = br.readLine()) != null) {
