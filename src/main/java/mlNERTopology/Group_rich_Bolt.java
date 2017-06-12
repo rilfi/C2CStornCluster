@@ -13,6 +13,7 @@ import org.apache.storm.tuple.Values;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,11 @@ public class Group_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        modelFile =new File("group.model.LogReg");
+        try {
+            modelFile =new File(getClass().getResource("group.model.LogReg").toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         try {
             classifier= (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {

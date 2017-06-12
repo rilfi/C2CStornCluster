@@ -9,6 +9,7 @@ import org.apache.storm.tuple.Tuple;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public class Persist_rich_Bolt1 extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this._collector = outputCollector;
+        InputStream input = getClass().getResourceAsStream("brand_Product_crf.model");
         try {
             writer=new BufferedWriter(new FileWriter("tags.out"));
         } catch (IOException e) {

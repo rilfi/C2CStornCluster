@@ -13,6 +13,8 @@ import org.apache.storm.tuple.Values;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,7 +34,14 @@ public class State_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        modelFile =new File("state_LogReg.model");
+        try {
+            modelFile =new File(getClass().getResource("state_LogReg.model").toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        //modelFile=input;
+
         try {
             classifier= (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {

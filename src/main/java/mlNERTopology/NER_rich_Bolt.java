@@ -14,6 +14,7 @@ import org.apache.storm.tuple.Values;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,7 +34,11 @@ public class NER_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        modelFile = new File("brand_Product_crf.model");
+        try {
+            modelFile = new File(getClass().getResource("brand_Product_crf.model").toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         try {
             crfChunker= (ChainCrfChunker)AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {
