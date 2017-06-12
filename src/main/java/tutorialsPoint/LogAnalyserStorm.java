@@ -14,7 +14,7 @@ public class LogAnalyserStorm {
    public static void main(String[] args) throws Exception{
       //Create Config instance for cluster configuration
       Config config = new Config();
-      config.setDebug(true);
+     // config.setDebug(true);
 
        //
       TopologyBuilder builder = new TopologyBuilder();
