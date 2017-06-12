@@ -33,7 +33,7 @@ public class Title_rich_Spout extends BaseRichSpout {
        // String titleFile= (String)  map.get("fileName");
         linesRead = new AtomicLong(0);
         try {
-            fis = new FileInputStream("mlNERTopology/c3TitleSet1.input");
+            fis = new FileInputStream("c3TitleSet1.input");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

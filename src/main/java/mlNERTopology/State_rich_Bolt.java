@@ -32,7 +32,7 @@ public class State_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
-        modelFile =new File("mlNERTopology/state_LogReg.model");
+        modelFile =new File("state_LogReg.model");
         try {
             classifier= (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {
