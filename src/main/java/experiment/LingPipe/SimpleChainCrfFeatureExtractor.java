@@ -1,4 +1,4 @@
-package experiment;
+package experiment.LingPipe;
 
 import com.aliasi.crf.ChainCrfFeatureExtractor;
 import com.aliasi.crf.ChainCrfFeatures;
