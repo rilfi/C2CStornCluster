@@ -22,20 +22,66 @@ import java.util.Set;
  * Created by s1 on 6/11/2017.
  */
 public class summa {
-    OutputCollector _collector;
+
+   // SimpleCrfFeatureExtractor fg;
+   OutputCollector _collector;
     File modelFile ;
     ChainCrfChunker crfChunker;
-   // SimpleCrfFeatureExtractor fg;
+
+
+    private String row;
+
+
+    public void prepare() {
+        modelFile = new File("brand_Product_crf.model");
+        try {
+            crfChunker= (ChainCrfChunker)AbstractExternalizable.readObject(modelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void execute() {
+
+        row="MELISSA ETHERIDGE Miniature Mini Guitar Ovation";
+        Chunking chunking = crfChunker.chunk(row);
+        Set<String>brandSet=new HashSet<>();
+        Set<String>catSet=new HashSet<>();
+        Map<String,Set<String>> returnMap= new HashMap<>();
+        for(Chunk el:chunking.chunkSet()){
+            int start=el.start();
+            int end=el.end();
+            String chuntText= (String) chunking.charSequence().subSequence(start,end);
+            String type=el.type();
+            if(type.equals("BND")){
+                brandSet.add(chuntText.toLowerCase());
+            }
+            else if(type.equals("CAT")){
+                catSet.add(chuntText.toLowerCase());
+            }
+        }
+        if(brandSet.size()>0){
+            returnMap.put("BND",brandSet);
+
+        }
+        if (catSet.size()>0){
+            returnMap.put("CAT",catSet);
+        }
+        if(returnMap.size()==2){
+            System.out.println(returnMap.keySet());
+        }
+
+
+
+
+    }
     public static void main(String[] args) {
 
         summa su=new summa();
-        try {
-            su.doSomething();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        su.prepare();
+        su.execute();
 
     }
     public void doSomething() throws URISyntaxException, IOException {

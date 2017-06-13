@@ -25,8 +25,8 @@ public class C2CStormTopology {
 
     Config config = new Config();
     config.setDebug(false);
-   // config.setNumWorkers(3);
- /*     try {
+    config.setNumWorkers(3);
+      try {
           StormSubmitter.submitTopology("C2CStormTopology", config, builder.createTopology());
       } catch (AlreadyAliveException e) {
           e.printStackTrace();
@@ -34,14 +34,14 @@ public class C2CStormTopology {
           e.printStackTrace();
       } catch (AuthorizationException e) {
           e.printStackTrace();
-      }*/
+      }
 
 
 
-    LocalCluster localCluster = new LocalCluster();
+/*    LocalCluster localCluster = new LocalCluster();
     localCluster.submitTopology("C2CStormTopology", config, builder.createTopology());
 
     Utils.sleep(10000);
-    localCluster.shutdown();
+    localCluster.shutdown();*/
   }
 }
