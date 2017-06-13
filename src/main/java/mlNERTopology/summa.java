@@ -1,13 +1,33 @@
 package mlNERTopology;
 
+import com.aliasi.chunk.Chunk;
+import com.aliasi.chunk.Chunking;
+import com.aliasi.classify.Classification;
+import com.aliasi.classify.LogisticRegressionClassifier;
+import com.aliasi.crf.ChainCrfChunker;
+import com.aliasi.util.AbstractExternalizable;
+import experiment.LingPipe.SimpleCrfFeatureExtractor;
+import org.apache.storm.task.OutputCollector;
+import org.apache.storm.tuple.Values;
+
+
 import java.io.*;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by s1 on 6/11/2017.
  */
 public class summa {
+    OutputCollector _collector;
+    File modelFile ;
+    ChainCrfChunker crfChunker;
+    SimpleCrfFeatureExtractor fg;
     public static void main(String[] args) {
+
         summa su=new summa();
         try {
             su.doSomething();
@@ -20,7 +40,7 @@ public class summa {
     }
     public void doSomething() throws URISyntaxException, IOException {
 
-        //InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
+        /*//InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
         System.out.println(getClass().getResource("c3TitleSet1.input").getFile());
        // File modelFile = new File(getClass().getResource("/root/C2CStornCluster/src/main/resources/c3TitleSet1.input").getFile());
         File modelFile = new File("/root/C2CStornCluster/src/main/resources/mlNERTopology/c3TitleSet1.input");
@@ -32,6 +52,20 @@ public class summa {
         while ((row = br.readLine()) != null) {
             count++;
         }
-        System.out.println(count);
+        System.out.println(count);*/
+
+        File modelFile =new File("group_LogReg.model");
+        LogisticRegressionClassifier<CharSequence> classifier= null;
+        try {
+            classifier = (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Classification classification
+                = classifier.classify("HP 7 Model 1800 Tablet with Intel Atom Processor 8GB Memory Tablet Case - UniGrip Edition - BLACK (Walmart Exclusive)");
+        String group=classification.bestCategory();
+        System.out.println(group);
+
+
     }
 }
