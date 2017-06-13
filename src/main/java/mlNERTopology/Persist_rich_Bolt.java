@@ -46,6 +46,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
 
 
         }
+        System.out.println(line);
         _collector.ack(tuple);
 
 

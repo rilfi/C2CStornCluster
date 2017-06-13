@@ -25,6 +25,9 @@ public class Group_rich_Bolt extends BaseRichBolt {
     OutputCollector _collector;
     File modelFile ;
     LogisticRegressionClassifier<CharSequence> classifier;
+    private long initiatatedTime;
+    private long threadid;
+    private long count;
 
 
     private String row;
@@ -32,6 +35,10 @@ public class Group_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
+
+        initiatatedTime = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        threadid=Thread.currentThread().getId();
+        count = 1;
         modelFile =new File("/root/group_LogReg.model");
         try {
             classifier= (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
@@ -44,16 +51,27 @@ public class Group_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
+        long beforeProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
 
-        row=tuple.getStringByField("row");
+
+        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
+
+        String msg=returnMap.get("MSG");
         Classification classification
-                = classifier.classify(row);
+                = classifier.classify(msg);
         String group=classification.bestCategory();
-        Set<String>groupSet=new HashSet<>();
-        Map<String,Set<String>> returnMap= (Map<String, Set<String>>) tuple.getValueByField("returnMap");
-        groupSet.add(group);
-        returnMap.put("GRO",groupSet);
-        _collector.emit( tuple,new Values(row,returnMap));
+        returnMap.put("GRO",group);
+        Long afterProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        long averageTS = (afterProcessTS - initiatatedTime) / count;
+        count++;
+        long timeTaken = afterProcessTS - beforeProcessTS;
+
+
+
+        returnMap.put("TT_GRO",String.valueOf(timeTaken));
+        returnMap.put("AV_GRO",String.valueOf(averageTS));
+        returnMap.put("TID_GRO",String.valueOf(threadid));
+        _collector.emit( tuple,new Values(returnMap));
         _collector.ack(tuple);
 
 
@@ -63,7 +81,7 @@ public class Group_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("row","returnMap"));
+        outputFieldsDeclarer.declare(new Fields("returnMap"));
 
     }
 

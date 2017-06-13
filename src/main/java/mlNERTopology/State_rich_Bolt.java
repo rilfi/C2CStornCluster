@@ -27,6 +27,12 @@ public class State_rich_Bolt extends BaseRichBolt {
     OutputCollector _collector;
     File modelFile ;
     LogisticRegressionClassifier<CharSequence> classifier;
+    private long initiatatedTime;
+    private long threadid;
+    private long count;
+
+
+
 
 
     private String row;
@@ -34,6 +40,11 @@ public class State_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
+        initiatatedTime = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        threadid=Thread.currentThread().getId();
+        count = 1;
+
+
         modelFile =new File("/root/state_LogReg.model");
 
         //modelFile=input;
@@ -49,16 +60,25 @@ public class State_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
+        long beforeProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
 
-        row=tuple.getStringByField("row");
+        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
+
+        String msg=returnMap.get("MSG");
         Classification classification
-                = classifier.classify(row);
+                = classifier.classify(msg);
         String state=classification.bestCategory();
-        Set<String>stateSet=new HashSet<>();
-        Map<String,Set<String>> returnMap=new HashMap<>();
-        stateSet.add(state);
-        returnMap.put("STA",stateSet);
-        _collector.emit( tuple,new Values(row,returnMap));
+        Long afterProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        long averageTS = (afterProcessTS - initiatatedTime) / count;
+        count++;
+        long timeTaken = afterProcessTS - beforeProcessTS;
+
+
+        returnMap.put("STA",state);
+        returnMap.put("TT_STA",String.valueOf(timeTaken));
+        returnMap.put("AV_STA",String.valueOf(averageTS));
+        returnMap.put("TID_STA",String.valueOf(threadid));
+        _collector.emit( tuple,new Values(returnMap));
         _collector.ack(tuple);
 
 
@@ -68,7 +88,7 @@ public class State_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("row","returnMap"));
+        outputFieldsDeclarer.declare(new Fields("returnMap"));
 
     }
 

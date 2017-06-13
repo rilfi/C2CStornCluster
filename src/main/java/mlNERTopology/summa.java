@@ -13,10 +13,7 @@ import org.apache.storm.tuple.Values;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by s1 on 6/11/2017.
@@ -79,10 +76,17 @@ public class summa {
     }
     public static void main(String[] args) {
 
-        summa su=new summa();
+        /*summa su=new summa();
         su.prepare();
-        su.execute();
-
+        su.execute();*/
+        Set<String> hu=new HashSet<>();
+        hu.add("djgkjgh");
+        hu.add("fmgkjfh");
+        System.out.println(hu.toString());
+        Vector v=new Vector();
+        v.add("ssgfjg");
+        v.add(134);
+        System.out.println(v.toString());
     }
     public void doSomething() throws URISyntaxException, IOException {
 

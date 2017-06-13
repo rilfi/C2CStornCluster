@@ -27,6 +27,9 @@ public class NER_rich_Bolt extends BaseRichBolt {
     OutputCollector _collector;
     File modelFile ;
     ChainCrfChunker crfChunker;
+    private long initiatatedTime;
+    private long threadid;
+    private long count;
 
 
     private String row;
@@ -34,6 +37,9 @@ public class NER_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         _collector = outputCollector;
+        initiatatedTime = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        threadid=Thread.currentThread().getId();
+        count = 1;
         modelFile = new File("/root/brand_Product_crf.model");
         try {
             crfChunker= (ChainCrfChunker)AbstractExternalizable.readObject(modelFile);
@@ -46,12 +52,14 @@ public class NER_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
+        long beforeProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
 
-        row=tuple.getStringByField("row");
-        Chunking chunking = crfChunker.chunk(row);
+        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
+
+        String msg=returnMap.get("MSG");
+        Chunking chunking = crfChunker.chunk(msg);
         Set<String>brandSet=new HashSet<>();
         Set<String>catSet=new HashSet<>();
-        Map<String,Set<String>> returnMap= (Map<String, Set<String>>) tuple.getValueByField("returnMap");
         for(Chunk el:chunking.chunkSet()){
             int start=el.start();
             int end=el.end();
@@ -65,14 +73,25 @@ public class NER_rich_Bolt extends BaseRichBolt {
             }
         }
         if(brandSet.size()>0){
-            returnMap.put("BND",brandSet);
+
+            returnMap.put("BND",brandSet.toString());
 
         }
         if (catSet.size()>0){
-            returnMap.put("CAT",catSet);
+            returnMap.put("CAT",catSet.toString());
         }
+        Long afterProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        long averageTS = (afterProcessTS - initiatatedTime) / count;
+        count++;
+        long timeTaken = afterProcessTS - beforeProcessTS;
+
+
+
+        returnMap.put("TT_NER",String.valueOf(timeTaken));
+        returnMap.put("AV_NER",String.valueOf(averageTS));
+        returnMap.put("TID_NER",String.valueOf(threadid));
         if(returnMap.size()==2){
-            _collector.emit( tuple,new Values(row,returnMap));
+            _collector.emit( tuple,new Values(returnMap));
         }
         _collector.ack(tuple);
 
@@ -83,7 +102,7 @@ public class NER_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("row","returnMap"));
+        outputFieldsDeclarer.declare(new Fields("returnMap"));
 
     }
 

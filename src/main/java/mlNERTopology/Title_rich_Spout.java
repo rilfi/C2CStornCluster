@@ -11,7 +11,10 @@ import org.apache.storm.tuple.Values;
 import org.apache.storm.utils.Utils;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -25,17 +28,22 @@ public class Title_rich_Spout extends BaseRichSpout {
     InputStreamReader isr;
     BufferedReader br;
     private AtomicLong linesRead;
+    private long started;
+
 
 
     @Override
     public void open(Map map, TopologyContext topologyContext, SpoutOutputCollector spoutOutputCollector) {
         outputCollector = spoutOutputCollector;
-       // String titleFile= (String)  map.get("fileName");
+        started = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+
+        // String titleFile= (String)  map.get("fileName");
         linesRead = new AtomicLong(0);
         InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
         //fis = new FileInputStream("c3TitleSet1.input");
        // isr = new InputStreamReader(fis);
         br = new BufferedReader(new InputStreamReader(input));
+
 
 
     }
@@ -46,7 +54,11 @@ public class Title_rich_Spout extends BaseRichSpout {
         try {
             if ((row = br.readLine()) != null) {
                 long id = linesRead.incrementAndGet();
-                outputCollector.emit(new Values(row),id);
+                Map<String,String>returnMap=new HashMap<>();
+                returnMap.put("MSG",row);
+                returnMap.put("STARTED",String.valueOf(started));
+                returnMap.put("TPLSTART",String.valueOf(System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000)));
+                returnMap.put("MSGID",String.valueOf(id));
                 Utils.sleep(1);
 
 
@@ -77,7 +89,7 @@ public class Title_rich_Spout extends BaseRichSpout {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("row"));
+        outputFieldsDeclarer.declare(new Fields("returnMap"));
 
     }
 
