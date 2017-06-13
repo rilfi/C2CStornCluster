@@ -45,8 +45,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
 
 
         }
-        System.out.println(line);
-        _collector.ack(tuple);
+
 
 
         try {
@@ -55,7 +54,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        //writer.write(tv.toString());
+        _collector.ack(tuple);
 
 
 

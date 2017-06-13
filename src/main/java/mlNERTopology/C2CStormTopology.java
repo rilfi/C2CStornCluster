@@ -15,7 +15,7 @@ public class C2CStormTopology {
 
     TopologyBuilder builder = new TopologyBuilder();
 
-    builder.setSpout("Title", new Title_rich_Spout(), 2);
+    builder.setSpout("Title", new Title_rich_Spout(), 1);
 
     builder.setBolt("State", new State_rich_Bolt(),4 ).shuffleGrouping("Title");
     builder.setBolt("NER", new NER_rich_Bolt(), 4).shuffleGrouping("State");
@@ -24,8 +24,8 @@ public class C2CStormTopology {
     builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
 
     Config config = new Config();
-    config.setDebug(false);
-    config.setNumWorkers(3);
+    config.setDebug(true);
+    //config.setNumWorkers(3);
 /*      try {
           StormSubmitter.submitTopology("C2CStormTopology", config, builder.createTopology());
       } catch (AlreadyAliveException e) {
