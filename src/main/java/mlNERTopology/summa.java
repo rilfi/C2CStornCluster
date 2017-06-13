@@ -6,7 +6,6 @@ import com.aliasi.classify.Classification;
 import com.aliasi.classify.LogisticRegressionClassifier;
 import com.aliasi.crf.ChainCrfChunker;
 import com.aliasi.util.AbstractExternalizable;
-import experiment.LingPipe.SimpleCrfFeatureExtractor;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.tuple.Values;
 
@@ -25,7 +24,7 @@ public class summa {
     OutputCollector _collector;
     File modelFile ;
     ChainCrfChunker crfChunker;
-    SimpleCrfFeatureExtractor fg;
+   // SimpleCrfFeatureExtractor fg;
     public static void main(String[] args) {
 
         summa su=new summa();
