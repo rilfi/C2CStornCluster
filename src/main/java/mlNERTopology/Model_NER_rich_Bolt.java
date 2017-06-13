@@ -65,15 +65,17 @@ public class Model_NER_rich_Bolt extends BaseRichBolt {
         boolean isNumaric=false;
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (Character.isDigit(c) )
-                isNumaric=true;
-            break;
+            if (Character.isDigit(c) ) {
+                isNumaric = true;
+                break;
+            }
         }
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (Character.isLetter(c))
-                isAlpha=true;
-            break;
+            if (Character.isLetter(c)) {
+                isAlpha = true;
+                break;
+            }
         }
         if(isAlpha&&isNumaric){
             return true;
