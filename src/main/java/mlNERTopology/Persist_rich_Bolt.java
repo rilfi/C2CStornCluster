@@ -32,16 +32,15 @@ public class Persist_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
-        Map<String,Set<String>> returnMap= (Map<String, Set<String>>) tuple.getValueByField("returnMap");
+        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
         String tags[]={"MOD","STA","GRO","BRA","CAT"};
 
         String line="";
 
         for (String tag:returnMap.keySet()) {
-            String key = tag + ":";
-            for (String val : returnMap.get(tag)) {
-                key = key + val + ",";
-            }
+            String key = tag + ":"+returnMap.get(tag);
+
+
             line=line+key+"; ";
 
 
