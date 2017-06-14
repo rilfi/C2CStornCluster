@@ -78,10 +78,7 @@ public class Title_rich_Spout extends BaseRichSpout {
             else {
                 br.close();
             }
-/*            System.out.println("*****************");
-            System.out.println(count1);
-            System.out.println("************************");
-            System.out.println(count2);*/
+
 
         } catch (IOException e) {
             e.printStackTrace();
