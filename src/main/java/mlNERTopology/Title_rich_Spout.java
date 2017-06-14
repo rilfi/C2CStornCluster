@@ -36,14 +36,18 @@ public class Title_rich_Spout extends BaseRichSpout {
     public void open(Map map, TopologyContext topologyContext, SpoutOutputCollector spoutOutputCollector) {
         outputCollector = spoutOutputCollector;
         started = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
+        File f=new File("/root/1000.in");
 
         // String titleFile= (String)  map.get("fileName");
         linesRead = new AtomicLong(0);
         InputStream input = getClass().getResourceAsStream("1000.in");
         //fis = new FileInputStream("c3TitleSet1.input");
        // isr = new InputStreamReader(fis);
-        br = new BufferedReader(new InputStreamReader(input));
-
+        try {
+            br = new BufferedReader(new FileReader(f));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }
