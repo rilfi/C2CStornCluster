@@ -23,7 +23,7 @@ public class Persist_State extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this._collector = outputCollector;
         try {
-            writer=new BufferedWriter(new FileWriter("/root/out/s.out"));
+            writer=new BufferedWriter(new FileWriter("s.out"));
         } catch (IOException e) {
             e.printStackTrace();
         }
