@@ -69,7 +69,7 @@ public class Title_rich_Spout extends BaseRichSpout {
                 returnMap.put("TPLSTART",String.valueOf(System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000)));
                 returnMap.put("MSGID",String.valueOf(id));
                 outputCollector.emit(new Values(returnMap),id);
-                Utils.sleep(100);
+               // Utils.sleep(100);
                 count2++;
 
 
@@ -78,10 +78,10 @@ public class Title_rich_Spout extends BaseRichSpout {
             else {
                 br.close();
             }
-            System.out.println("*****************");
+/*            System.out.println("*****************");
             System.out.println(count1);
             System.out.println("************************");
-            System.out.println(count2);
+            System.out.println(count2);*/
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,6 +107,13 @@ public class Title_rich_Spout extends BaseRichSpout {
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
         outputFieldsDeclarer.declare(new Fields("returnMap"));
 
+    }
+    @Override
+    public void close(){
+        System.out.println("*****************");
+        System.out.println(count1);
+        System.out.println("************************");
+        System.out.println(count2);
     }
 
 }
