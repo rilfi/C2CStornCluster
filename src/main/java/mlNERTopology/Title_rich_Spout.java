@@ -29,6 +29,8 @@ public class Title_rich_Spout extends BaseRichSpout {
     BufferedReader br;
     private AtomicLong linesRead;
     private long started;
+    int count1;
+    int count2;
 
 
 
@@ -37,6 +39,8 @@ public class Title_rich_Spout extends BaseRichSpout {
         outputCollector = spoutOutputCollector;
         started = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
         File f=new File("/root/1000.in");
+        count1=0;
+        count2=0;
 
         // String titleFile= (String)  map.get("fileName");
         linesRead = new AtomicLong(0);
@@ -54,6 +58,7 @@ public class Title_rich_Spout extends BaseRichSpout {
 
     @Override
     public void nextTuple() {
+        count1++;
         String row = null;
         try {
             if ((row = br.readLine()) != null) {
@@ -65,12 +70,18 @@ public class Title_rich_Spout extends BaseRichSpout {
                 returnMap.put("MSGID",String.valueOf(id));
                 outputCollector.emit(new Values(returnMap),id);
                 Utils.sleep(100);
+                count2++;
 
 
             }
+
             else {
                 br.close();
             }
+            System.out.println("*****************");
+            System.out.println(count1);
+            System.out.println("************************");
+            System.out.println(count2);
 
         } catch (IOException e) {
             e.printStackTrace();
