@@ -61,7 +61,7 @@ public class Title_rich_Spout extends BaseRichSpout {
         count1++;
         String row = null;
         try {
-            if ((row = br.readLine()) != null) {
+            while ((row = br.readLine()) != null) {
                 long id = linesRead.incrementAndGet();
                 Map<String,String>returnMap=new HashMap<>();
                 returnMap.put("MSG",row);
@@ -75,16 +75,19 @@ public class Title_rich_Spout extends BaseRichSpout {
 
             }
 
-            else {
-                br.close();
-            }
+
+
+
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
