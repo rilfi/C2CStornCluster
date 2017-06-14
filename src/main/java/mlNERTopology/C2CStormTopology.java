@@ -17,12 +17,12 @@ public class C2CStormTopology {
 
     builder.setSpout("Title", new Title_rich_Spout(), 1);
 
-/*    builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("Title");
+   builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("Title");
     builder.setBolt("Model", new Model_NER_rich_Bolt(), 1).shuffleGrouping("State");
     builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Model");
-    builder.setBolt("NER", new NER_rich_Bolt(), 1).shuffleGrouping("Group");*/
+    builder.setBolt("NER", new NER_rich_Bolt(), 1).shuffleGrouping("Group");
 
-    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Title");
+    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("NER");
 
     Config config = new Config();
     config.setDebug(true);
