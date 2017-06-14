@@ -83,11 +83,11 @@ public class Title_rich_Spout extends BaseRichSpout {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
+       /* try {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }
