@@ -39,7 +39,7 @@ public class Title_rich_Spout extends BaseRichSpout {
 
         // String titleFile= (String)  map.get("fileName");
         linesRead = new AtomicLong(0);
-        InputStream input = getClass().getResourceAsStream("c3TitleSet1.input");
+        InputStream input = getClass().getResourceAsStream("1000.in");
         //fis = new FileInputStream("c3TitleSet1.input");
        // isr = new InputStreamReader(fis);
         br = new BufferedReader(new InputStreamReader(input));
