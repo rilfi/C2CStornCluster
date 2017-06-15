@@ -17,22 +17,25 @@ import java.util.Set;
  */
 public class Persist_NER extends BaseRichBolt {
     OutputCollector _collector;
-    private BufferedWriter writer;
+    int count;
+   // private BufferedWriter writer;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
+        count=1;
         this._collector = outputCollector;
-        try {
+        /*try {
             writer=new BufferedWriter(new FileWriter("n.out"));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
     @Override
     public void execute(Tuple tuple) {
-        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
+        count++;
+/*        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
         String tags[]={"MOD","STA","GRO","BRA","CAT"};
 
         String line="";
@@ -44,17 +47,17 @@ public class Persist_NER extends BaseRichBolt {
             line=line+key+"; ";
 
 
-        }
+        }*/
 
 
 
-        try {
+        /*try {
             writer.write(line);
             writer.newLine();
             writer.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
-        }
+        }*/
         _collector.ack(tuple);
 
 
@@ -69,11 +72,14 @@ public class Persist_NER extends BaseRichBolt {
 
     @Override
     public void cleanup() {
-        try {
+        System.out.println("*******************");
+        System.out.println(count);
+        System.out.println("*******************");
+       /* try {
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
 

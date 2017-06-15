@@ -16,8 +16,10 @@ public class C2CStormTopology {
     TopologyBuilder builder = new TopologyBuilder();
 
     builder.setSpout("Title", new Title_rich_Spout(), 1);
-    builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Title");
-    builder.setBolt("gp", new Persist_Group() ,1 ).shuffleGrouping("Group");
+    builder.setBolt("NER", new NER_rich_Bolt(), 1).shuffleGrouping("Title");
+    builder.setBolt("np", new Persist_NER(),1 ).shuffleGrouping("NER");
+/*    builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Title");
+    builder.setBolt("gp", new Persist_Group() ,1 ).shuffleGrouping("Group");*/
   /*  builder.setBolt("tp", new Persist_title(),1 ).shuffleGrouping("Title");
 
 
