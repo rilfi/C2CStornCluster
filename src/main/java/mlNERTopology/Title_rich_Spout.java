@@ -68,7 +68,7 @@ public class Title_rich_Spout extends BaseRichSpout {
                 returnMap.put("STARTED",String.valueOf(started));
                 returnMap.put("TPLSTART",String.valueOf(System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000)));
                 returnMap.put("MSGID",String.valueOf(id));
-                Utils.sleep(1000);
+               // Utils.sleep(1000);
                 outputCollector.emit(new Values(returnMap),id);
                // Utils.sleep(100);
                 count2++;
