@@ -9,6 +9,7 @@ import org.apache.storm.tuple.Tuple;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,11 +19,13 @@ import java.util.Set;
 public class Persist_NER extends BaseRichBolt {
     OutputCollector _collector;
     int count;
+    ArrayList<String>num=new ArrayList<>();
+
    // private BufferedWriter writer;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
-        count=1;
+
         this._collector = outputCollector;
         /*try {
             writer=new BufferedWriter(new FileWriter("n.out"));
@@ -35,6 +38,9 @@ public class Persist_NER extends BaseRichBolt {
     @Override
     public void execute(Tuple tuple) {
         count++;
+        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
+        num.add(returnMap.get("MSGID"));
+
 /*        Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
         String tags[]={"MOD","STA","GRO","BRA","CAT"};
 
@@ -75,6 +81,9 @@ public class Persist_NER extends BaseRichBolt {
         System.out.println("*******************");
         System.out.println(count);
         System.out.println("*******************");
+        for(String s:num){
+            System.out.println(s);
+        }
        /* try {
             writer.close();
         } catch (IOException e) {
