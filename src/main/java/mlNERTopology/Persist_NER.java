@@ -21,7 +21,7 @@ public class Persist_NER extends BaseRichBolt {
     int count;
     ArrayList<String>num=new ArrayList<>();
 
-   // private BufferedWriter writer;
+   private BufferedWriter writer;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {

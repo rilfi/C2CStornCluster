@@ -18,6 +18,7 @@ import java.util.Set;
 public class Persist_rich_Bolt extends BaseRichBolt {
     OutputCollector _collector;
     private BufferedWriter writer;
+    int count=0;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
@@ -32,6 +33,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
+        count++;
         Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
         String tags[]={"MOD","STA","GRO","BRA","CAT"};
 
@@ -51,7 +53,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
         try {
             writer.write(line);
             writer.newLine();
-            writer.flush();
+           // writer.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -69,6 +71,9 @@ public class Persist_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void cleanup() {
+        System.out.println("*******************");
+        System.out.println(count);
+        System.out.println("*******************");
         try {
             writer.close();
         } catch (IOException e) {
