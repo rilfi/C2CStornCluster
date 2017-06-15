@@ -63,7 +63,7 @@ public class C2CStormTopology {
     LocalCluster localCluster = new LocalCluster();
     localCluster.submitTopology("C2CStormTopology2", config, builder.createTopology());
 
-    Utils.sleep(500000);
+    Utils.sleep(900000);
     localCluster.shutdown();
   }
 }
