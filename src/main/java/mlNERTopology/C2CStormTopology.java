@@ -17,7 +17,7 @@ public class C2CStormTopology {
 
     builder.setSpout("Title", new Title_rich_Spout(), 1);
     builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Title");
-    builder.setBolt("gp", new Persist_Model(),1 ).shuffleGrouping("Group");
+    builder.setBolt("gp", new Persist_Group() ,1 ).shuffleGrouping("Group");
   /*  builder.setBolt("tp", new Persist_title(),1 ).shuffleGrouping("Title");
 
 
