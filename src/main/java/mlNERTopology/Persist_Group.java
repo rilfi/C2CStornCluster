@@ -51,7 +51,7 @@ public class Persist_Group extends BaseRichBolt {
         try {
             writer.write(line);
             writer.newLine();
-            writer.flush();
+           // writer.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
