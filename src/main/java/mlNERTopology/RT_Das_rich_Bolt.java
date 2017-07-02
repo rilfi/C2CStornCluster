@@ -47,7 +47,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
         username = "admin";
         password = "admin";
         streamId = "RT_C2C_FULL:1.0.0";
-        streamId = "justfortest:1.0.0";
+       //streamId = "justfortest:1.0.0";
 
         streamId1 = "RelatedStream:1.0.0";
         sampleNumber = "0007";
