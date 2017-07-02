@@ -16,14 +16,16 @@ public class C2CStormTopology {
   //  builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("P_NER");
 
     builder.setBolt("B_NER", new Brand_NER_rich_Bolt(), 1).shuffleGrouping("P_NER");
-    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("B_NER");
+    //builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("B_NER");
    // builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
 
     //builder.setBolt("np", new Persist_NER(),1 ).shuffleGrouping("NER");
-/*    builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("B_NER");
-    builder.setBolt("Model", new Model_NER_rich_Bolt(), 1).shuffleGrouping("State");
-    builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Model");
-    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");*/
+    builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("B_NER");
+    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("State");
+
+   // builder.setBolt("Model", new Model_NER_rich_Bolt(), 1).shuffleGrouping("State");
+  //  builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Model");
+  //  builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
 
 
 
