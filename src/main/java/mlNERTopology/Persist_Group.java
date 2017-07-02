@@ -18,18 +18,18 @@ import java.util.Set;
  */
 public class Persist_Group extends BaseRichBolt {
     OutputCollector _collector;
-   // private BufferedWriter writer;
+    private BufferedWriter writer;
     int count;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this._collector = outputCollector;
         count=1;
-       /* try {
+        try {
             writer=new BufferedWriter(new FileWriter("g.out"));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
     }
 
@@ -52,13 +52,13 @@ public class Persist_Group extends BaseRichBolt {
 
 
 
-      /*  try {
+        try {
             writer.write(line);
             writer.newLine();
-           // writer.flush();
+           writer.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
-        }*/
+        }
         _collector.ack(tuple);
 
 
