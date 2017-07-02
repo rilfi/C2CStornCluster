@@ -32,9 +32,9 @@ public class Related_Das_rich_Bolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         sslConfig = SslConfigurator.newInstance()
-                .trustStoreFile("client-truststore.jks")
+                .trustStoreFile("/root/models/client-truststore.jks")
                 .trustStorePassword("wso2carbon")
-                .keyStoreFile("wso2carbon.jks")
+                .keyStoreFile("/root/models/wso2carbon.jks")
                 .keyPassword("wso2carbon");
         sslContext = sslConfig.createSSLContext();
         //HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("Basic", "YWRtaW46YWRtaW4=");

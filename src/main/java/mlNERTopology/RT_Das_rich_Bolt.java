@@ -34,7 +34,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
-        AgentHolder. setConfigPath ("root/data-agent-config.xml");
+        AgentHolder. setConfigPath ("/root/models/data-agent-config.xml");
         DataPublisherUtil.setTrustStoreParams();
         //dataPublisher =  new  DataPublisher(url, username, password);
         protocol = "thrift";
