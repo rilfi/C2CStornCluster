@@ -53,7 +53,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
         try {
             writer.write(line);
             writer.newLine();
-           // writer.flush();
+            writer.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
