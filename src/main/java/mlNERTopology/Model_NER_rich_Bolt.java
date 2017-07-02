@@ -66,6 +66,8 @@ public class Model_NER_rich_Bolt extends BaseRichBolt {
         returnMap.put("TT_MOD",String.valueOf(timeTaken));
         returnMap.put("AV_MOD",String.valueOf(averageTS));
         returnMap.put("TID_MOD",String.valueOf(threadid));
+        returnMap.put("CNT_MOD",String.valueOf(count));
+
 
         _collector.emit( tuple,new Values(returnMap));
 

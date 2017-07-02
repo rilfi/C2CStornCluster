@@ -94,6 +94,7 @@ public class Brand_NER_rich_Bolt extends BaseRichBolt {
         returnMap.put("TT_NER",String.valueOf(timeTaken));
         returnMap.put("AV_NER",String.valueOf(averageTS));
         returnMap.put("TID_NER",String.valueOf(threadid));
+        returnMap.put("CNT_NER",String.valueOf(count));
         _collector.emit( tuple,new Values(returnMap));
 
         _collector.ack(tuple);

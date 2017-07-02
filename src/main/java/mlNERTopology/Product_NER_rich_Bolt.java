@@ -92,9 +92,9 @@ public class Product_NER_rich_Bolt extends BaseRichBolt {
 
 
 
-        returnMap.put("TT_NER",String.valueOf(timeTaken));
-        returnMap.put("AV_NER",String.valueOf(averageTS));
-        returnMap.put("TID_NER",String.valueOf(threadid));
+       // returnMap.put("TT_NER",String.valueOf(timeTaken));
+       // returnMap.put("AV_NER",String.valueOf(averageTS));
+       // returnMap.put("TID_NER",String.valueOf(threadid));
         if(isignore==false) {
             _collector.emit(tuple, new Values(returnMap));
         }

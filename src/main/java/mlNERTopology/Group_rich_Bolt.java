@@ -71,6 +71,8 @@ public class Group_rich_Bolt extends BaseRichBolt {
         returnMap.put("TT_GRO",String.valueOf(timeTaken));
         returnMap.put("AV_GRO",String.valueOf(averageTS));
         returnMap.put("TID_GRO",String.valueOf(threadid));
+        returnMap.put("CNT_GRO",String.valueOf(count));
+
         _collector.emit( tuple,new Values(returnMap));
         _collector.ack(tuple);
 

@@ -78,6 +78,8 @@ public class State_rich_Bolt extends BaseRichBolt {
         returnMap.put("TT_STA",String.valueOf(timeTaken));
         returnMap.put("AV_STA",String.valueOf(averageTS));
         returnMap.put("TID_STA",String.valueOf(threadid));
+        returnMap.put("CNT_STA",String.valueOf(count));
+
         _collector.emit( tuple,new Values(returnMap));
         _collector.ack(tuple);
 
