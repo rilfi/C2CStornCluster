@@ -14,6 +14,7 @@ import org.wso2.carbon.databridge.agent.exception.DataEndpointException;
 import org.wso2.carbon.databridge.commons.Event;
 import org.wso2.carbon.databridge.commons.exception.TransportException;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -37,7 +38,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
                 _collector = outputCollector;
 
-        AgentHolder. setConfigPath ("/root/models/data-agent-config.xml");
+        AgentHolder. setConfigPath ("/root/models/conf.xml");
         DataPublisherUtil.setTrustStoreParams();
         //dataPublisher =  new  DataPublisher(url, username, password);
         protocol = "thrift";
@@ -91,5 +92,13 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
 
+    }
+    @Override
+    public void cleanup() {
+        try {
+            dataPublisher.shutdownWithAgent();
+        } catch (DataEndpointException e) {
+            e.printStackTrace();
+        }
     }
 }
