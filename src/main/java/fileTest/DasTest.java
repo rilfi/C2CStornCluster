@@ -49,7 +49,7 @@ public class DasTest {
             e.printStackTrace();
         }
 
-        Object payloadDataArray[]={1,"a"};
+        Object payloadDataArray[]={10,"a"};
         Event event = new Event(streamId, System.currentTimeMillis(), null, null, payloadDataArray);
         dataPublisher.publish(event);
         try {
