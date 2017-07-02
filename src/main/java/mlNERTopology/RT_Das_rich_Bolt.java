@@ -46,7 +46,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
         port = "7611";
         username = "admin";
         password = "admin";
-        streamId = "RT_C2C_FULL:1.0.0";
+        streamId = "RT_C2C_FULL1:1.0.0";
        //streamId = "justfortest:1.0.0";
 
         streamId1 = "RelatedStream:1.0.0";
@@ -90,7 +90,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
 
         //Event event = new Event(streamId, System.currentTimeMillis(), metaDataArray, correlationdataArray, payloadDataArray);
-        Event event = new Event(streamId, System.currentTimeMillis(), metaDataArray, correlationdataArray, payloadDataArray);
+        Event event = new Event(streamId, System.currentTimeMillis(), null, null, payloadDataArray);
 
         dataPublisher.publish(event);
         _collector.ack(tuple);
