@@ -90,7 +90,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
 
         //Event event = new Event(streamId, System.currentTimeMillis(), metaDataArray, correlationdataArray, payloadDataArray);
-        Event event = new Event(streamId, System.currentTimeMillis(), null, null, payloadDataArray);
+        Event event = new Event(streamId, System.currentTimeMillis(), null, correlationdataArray, payloadDataArray);
 
         dataPublisher.publish(event);
         _collector.ack(tuple);
