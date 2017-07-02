@@ -72,8 +72,8 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
 
 
-        Object metaDataArray[]={returnMap.get("MSG"),Long.getLong(returnMap.get("TID_NER")),Long.getLong(returnMap.get("TID_STA")),Long.getLong(returnMap.get("TID_MOD")),Long.getLong(returnMap.get("TID_GRO")),returnMap.get("USER"),returnMap.get("URL"),returnMap.get("LOC")};
-        Object correlationdataArray[]={Long.getLong(returnMap.get("STARTED")),Long.getLong(returnMap.get("TPLSTART")),Long.getLong(returnMap.get("TT_NER")),Long.getLong(returnMap.get("AV_NER")),Long.getLong(returnMap.get("TT_STA")),Long.getLong(returnMap.get("AV_STA")),Long.getLong(returnMap.get("TT_MOD")),Long.getLong(returnMap.get("AV_MOD")),Long.getLong(returnMap.get("TT_GRO")),Long.getLong(returnMap.get("AV_GRO")),Long.getLong(returnMap.get("CNT_NER")),Long.getLong(returnMap.get("CNT_STA")),Long.getLong(returnMap.get("CNT_MOD")),Long.getLong(returnMap.get("CNT_GRO"))};
+       // Object metaDataArray[]={returnMap.get("MSG"),Long.getLong(returnMap.get("TID_NER")),Long.getLong(returnMap.get("TID_STA")),Long.getLong(returnMap.get("TID_MOD")),Long.getLong(returnMap.get("TID_GRO")),returnMap.get("USER"),returnMap.get("URL"),returnMap.get("LOC")};
+       // Object correlationdataArray[]={Long.getLong(returnMap.get("STARTED")),Long.getLong(returnMap.get("TPLSTART")),Long.getLong(returnMap.get("TT_NER")),Long.getLong(returnMap.get("AV_NER")),Long.getLong(returnMap.get("TT_STA")),Long.getLong(returnMap.get("AV_STA")),Long.getLong(returnMap.get("TT_MOD")),Long.getLong(returnMap.get("AV_MOD")),Long.getLong(returnMap.get("TT_GRO")),Long.getLong(returnMap.get("AV_GRO")),Long.getLong(returnMap.get("CNT_NER")),Long.getLong(returnMap.get("CNT_STA")),Long.getLong(returnMap.get("CNT_MOD")),Long.getLong(returnMap.get("CNT_GRO"))};
 
         //Object correlationdataArray[]={returnMap.get("STARTED"),returnMap.get("TPLSTART"),returnMap.get("TT_NER"),returnMap.get("AV_NER"),returnMap.get("TT_STA"),returnMap.get("AV_STA"),returnMap.get("TT_MOD"),returnMap.get("AV_MOD"),returnMap.get("TT_GRO"),returnMap.get("AV_GRO"),returnMap.get("CNT_NER"),returnMap.get("CNT_STA"),returnMap.get("CNT_MOD"),returnMap.get("CNT_GRO")};
         Object payloadDataArray[]={Integer.parseInt(returnMap.get("MSGID")),returnMap.get("BND"),returnMap.get("PRO"),returnMap.get("MOD"),returnMap.get("STA"),returnMap.get("GRO")};
@@ -82,8 +82,10 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
 
 
-        Event event = new Event(streamId, System.currentTimeMillis(), metaDataArray, correlationdataArray, payloadDataArray);
-       dataPublisher.publish(event);
+        //Event event = new Event(streamId, System.currentTimeMillis(), metaDataArray, correlationdataArray, payloadDataArray);
+        Event event = new Event(streamId, System.currentTimeMillis(), null, null, payloadDataArray);
+
+        dataPublisher.publish(event);
         _collector.ack(tuple);
 
 
