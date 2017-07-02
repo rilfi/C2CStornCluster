@@ -39,7 +39,7 @@ public class Group_rich_Bolt extends BaseRichBolt {
         initiatatedTime = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
         threadid=Thread.currentThread().getId();
         count = 1;
-        modelFile =new File("/root/group_LogReg.model");
+        modelFile =new File("/root/models/group.model.LogReg");
         try {
             classifier= (LogisticRegressionClassifier<CharSequence>) AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {

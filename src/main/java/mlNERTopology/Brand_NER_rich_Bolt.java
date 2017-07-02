@@ -40,7 +40,7 @@ public class Brand_NER_rich_Bolt extends BaseRichBolt {
         initiatatedTime = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
         threadid=Thread.currentThread().getId();
         count = 1;
-        modelFile = new File("/root/brand_crf.model");
+        modelFile = new File("/root/models/brand_Product_crf.model");
         try {
             crfChunker= (ChainCrfChunker)AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {

@@ -45,7 +45,7 @@ public class State_rich_Bolt extends BaseRichBolt {
         count = 1;
 
 
-        modelFile =new File("/root/state_LogReg.model");
+        modelFile =new File("/root/models/status.model.LogReg");
 
         //modelFile=input;
 
