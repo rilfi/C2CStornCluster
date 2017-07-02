@@ -73,7 +73,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
 
 
-        Object metaDataArray[]={returnMap.get("MSG"),Long.valueOf(returnMap.get("TID_NER")),Long.valueOf(returnMap.get("TID_STA")),Long.valueOf(returnMap.get("TID_MOD")),Long.valueOf(returnMap.get("TID_GRO")),returnMap.get("USER"),returnMap.get("URL"),returnMap.get("LOC")};
+        Object metaDataArray[]={returnMap.get("MSG"),Long.valueOf(returnMap.get("TID_NER")),Long.valueOf(returnMap.get("TID_STA")),Long.valueOf(returnMap.get("TID_MOD")),Long.valueOf(returnMap.get("TID_GRO")),"USER","URL","LOC"};
        // Object correlationdataArray[]={Long.valueOf(returnMap.get("STARTED")),Long.valueOf(returnMap.get("TPLSTART")),Long.valueOf(returnMap.get("TT_NER")),Long.valueOf(returnMap.get("AV_NER")),Long.valueOf(returnMap.get("TT_STA")),Long.valueOf(returnMap.get("AV_STA")),Long.valueOf(returnMap.get("TT_MOD")),Long.valueOf(returnMap.get("AV_MOD")),Long.valueOf(returnMap.get("TT_GRO")),Long.valueOf(returnMap.get("AV_GRO")),Long.valueOf(returnMap.get("CNT_NER")),Long.valueOf(returnMap.get("CNT_STA")),Long.valueOf(returnMap.get("CNT_MOD")),Long.valueOf(returnMap.get("CNT_GRO"))};
      try{
 
