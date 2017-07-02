@@ -24,7 +24,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this._collector = outputCollector;
         try {
-            writer=new BufferedWriter(new FileWriter("tags3.out"));
+            writer=new BufferedWriter(new FileWriter("tags4.out"));
         } catch (IOException e) {
             e.printStackTrace();
         }
