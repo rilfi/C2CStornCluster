@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * Created by a1 on 4/2/2017.
  */
-public class NER_rich_Bolt extends BaseRichBolt {
+public class Product_NER_rich_Bolt extends BaseRichBolt {
     OutputCollector _collector;
     File modelFile ;
     ChainCrfChunker crfChunker;
@@ -40,7 +40,7 @@ public class NER_rich_Bolt extends BaseRichBolt {
         initiatatedTime = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
         threadid=Thread.currentThread().getId();
         count = 1;
-        modelFile = new File("/root/brand_Product_crf.model");
+        modelFile = new File("/root/product_crf.model");
         try {
             crfChunker= (ChainCrfChunker)AbstractExternalizable.readObject(modelFile);
         } catch (IOException e) {
@@ -52,6 +52,7 @@ public class NER_rich_Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
+        boolean isignore=false;
         long beforeProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
 
         Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
@@ -65,21 +66,25 @@ public class NER_rich_Bolt extends BaseRichBolt {
             int end=el.end();
             String chuntText= (String) chunking.charSequence().subSequence(start,end);
             String type=el.type();
-            if(type.equals("BND")){
+            if(type.equals("category")){
                 brandSet.add(chuntText.toLowerCase());
             }
-            else if(type.equals("CAT")){
+           /* else if(type.equals("CAT")){
                 catSet.add(chuntText.toLowerCase());
-            }
+            }*/
         }
         if(brandSet.size()>0){
 
-            returnMap.put("BND",brandSet.toString());
+            returnMap.put("PRO",brandSet.toString());
 
         }
-        if (catSet.size()>0){
-            returnMap.put("CAT",catSet.toString());
+        else {
+            isignore=true;
+
         }
+        /*if (catSet.size()>0){
+            returnMap.put("CAT",catSet.toString());
+        }*/
         Long afterProcessTS = System.nanoTime() - (24 * 60 * 60 * 1000 * 1000 * 1000);
         long averageTS = (afterProcessTS - initiatatedTime) / count;
         count++;
@@ -90,7 +95,9 @@ public class NER_rich_Bolt extends BaseRichBolt {
         returnMap.put("TT_NER",String.valueOf(timeTaken));
         returnMap.put("AV_NER",String.valueOf(averageTS));
         returnMap.put("TID_NER",String.valueOf(threadid));
-        _collector.emit( tuple,new Values(returnMap));
+        if(isignore==false) {
+            _collector.emit(tuple, new Values(returnMap));
+        }
 
         _collector.ack(tuple);
 

@@ -3,10 +3,6 @@ package mlNERTopology;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
-import org.apache.storm.StormSubmitter;
-import org.apache.storm.generated.AlreadyAliveException;
-import org.apache.storm.generated.AuthorizationException;
-import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.utils.Utils;
 
@@ -16,12 +12,13 @@ public class C2CStormTopology {
     TopologyBuilder builder = new TopologyBuilder();
 
     builder.setSpout("Title", new Title_rich_Spout(), 1);
-    builder.setBolt("NER", new NER_rich_Bolt(), 1).shuffleGrouping("Title");
+    builder.setBolt("P_NER", new Product_NER_rich_Bolt(), 1).shuffleGrouping("Title");
+    builder.setBolt("B_NER", new Brand_NER_rich_Bolt(), 1).shuffleGrouping("P_NER");
     //builder.setBolt("np", new Persist_NER(),1 ).shuffleGrouping("NER");
-    builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("NER");
+    builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("B_NER");
     builder.setBolt("Model", new Model_NER_rich_Bolt(), 1).shuffleGrouping("State");
     builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Model");
-    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
+    builder.setBolt("persist", new RT_Das_rich_Bolt(), 1).shuffleGrouping("Group");
 
 
 
@@ -39,7 +36,7 @@ public class C2CStormTopology {
     builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Title");
     builder.setBolt("gp", new Persist_Model(),1 ).shuffleGrouping("Group");
 
-   /* builder.setBolt("NER", new NER_rich_Bolt(), 1).shuffleGrouping("Title");
+   /* builder.setBolt("NER", new Brand_NER_rich_Bolt(), 1).shuffleGrouping("Title");
     builder.setBolt("np", new Persist_NER(),1 ).shuffleGrouping("NER");*/
 
 
