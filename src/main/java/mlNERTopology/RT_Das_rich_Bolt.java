@@ -70,10 +70,16 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
     @Override
     public void execute(Tuple tuple) {
         Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
+        Object correlationdataArray[]=null;
 
 
         Object metaDataArray[]={returnMap.get("MSG"),Long.valueOf(returnMap.get("TID_NER")),Long.valueOf(returnMap.get("TID_STA")),Long.valueOf(returnMap.get("TID_MOD")),Long.valueOf(returnMap.get("TID_GRO")),returnMap.get("USER"),returnMap.get("URL"),returnMap.get("LOC")};
-        Object correlationdataArray[]={Long.valueOf(returnMap.get("STARTED")),Long.valueOf(returnMap.get("TPLSTART")),Long.valueOf(returnMap.get("TT_NER")),Long.valueOf(returnMap.get("AV_NER")),Long.valueOf(returnMap.get("TT_STA")),Long.valueOf(returnMap.get("AV_STA")),Long.valueOf(returnMap.get("TT_MOD")),Long.valueOf(returnMap.get("AV_MOD")),Long.valueOf(returnMap.get("TT_GRO")),Long.valueOf(returnMap.get("AV_GRO")),Long.valueOf(returnMap.get("CNT_NER")),Long.valueOf(returnMap.get("CNT_STA")),Long.valueOf(returnMap.get("CNT_MOD")),Long.valueOf(returnMap.get("CNT_GRO"))};
+       // Object correlationdataArray[]={Long.valueOf(returnMap.get("STARTED")),Long.valueOf(returnMap.get("TPLSTART")),Long.valueOf(returnMap.get("TT_NER")),Long.valueOf(returnMap.get("AV_NER")),Long.valueOf(returnMap.get("TT_STA")),Long.valueOf(returnMap.get("AV_STA")),Long.valueOf(returnMap.get("TT_MOD")),Long.valueOf(returnMap.get("AV_MOD")),Long.valueOf(returnMap.get("TT_GRO")),Long.valueOf(returnMap.get("AV_GRO")),Long.valueOf(returnMap.get("CNT_NER")),Long.valueOf(returnMap.get("CNT_STA")),Long.valueOf(returnMap.get("CNT_MOD")),Long.valueOf(returnMap.get("CNT_GRO"))};
+     try{
+          correlationdataArray= new Object[]{Long.valueOf(returnMap.get("STARTED")), Long.valueOf(returnMap.get("TPLSTART")), Long.valueOf(returnMap.get("TT_NER")), Long.valueOf(returnMap.get("AV_NER")), Long.valueOf(returnMap.get("TT_STA")), Long.valueOf(returnMap.get("AV_STA")), Long.valueOf(returnMap.get("TT_MOD")), Long.valueOf(returnMap.get("AV_MOD")), Long.valueOf(returnMap.get("TT_GRO")), Long.valueOf(returnMap.get("AV_GRO")), Long.valueOf(returnMap.get("CNT_NER")), Long.valueOf(returnMap.get("CNT_STA")), Long.valueOf(returnMap.get("CNT_MOD")), Long.valueOf(returnMap.get("CNT_GRO"))};
+     }catch (NumberFormatException ne){
+         ne.printStackTrace();
+     }
 
 
         // Object metaDataArray[]={returnMap.get("MSG"),Long.getLong(returnMap.get("TID_NER")),Long.getLong(returnMap.get("TID_STA")),Long.getLong(returnMap.get("TID_MOD")),Long.getLong(returnMap.get("TID_GRO")),returnMap.get("USER"),returnMap.get("URL"),returnMap.get("LOC")};
