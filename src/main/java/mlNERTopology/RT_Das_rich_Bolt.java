@@ -47,6 +47,8 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
         username = "admin";
         password = "admin";
         streamId = "RT_C2C_FULL:1.0.0";
+        streamId = "justfortest:1.0.0";
+
         streamId1 = "RelatedStream:1.0.0";
         sampleNumber = "0007";
         try {
@@ -78,7 +80,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
         //Object correlationdataArray[]={returnMap.get("STARTED"),returnMap.get("TPLSTART"),returnMap.get("TT_NER"),returnMap.get("AV_NER"),returnMap.get("TT_STA"),returnMap.get("AV_STA"),returnMap.get("TT_MOD"),returnMap.get("AV_MOD"),returnMap.get("TT_GRO"),returnMap.get("AV_GRO"),returnMap.get("CNT_NER"),returnMap.get("CNT_STA"),returnMap.get("CNT_MOD"),returnMap.get("CNT_GRO")};
 
        //Object payloadDataArray[]={Integer.parseInt(returnMap.get("MSGID")),returnMap.get("BND"),returnMap.get("PRO"),returnMap.get("MOD"),returnMap.get("STA"),returnMap.get("GRO")};
-        Object payloadDataArray[]={1,"BND","PRO","MOD","STA","GRO"};
+        Object payloadDataArray[]={1,"BND"};
 
 
 
