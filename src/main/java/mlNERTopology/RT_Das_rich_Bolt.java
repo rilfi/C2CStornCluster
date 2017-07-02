@@ -30,10 +30,13 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
     String streamId;
     String streamId1;
     String sampleNumber;
+    OutputCollector _collector;
     int delay;
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
+                _collector = outputCollector;
+
         AgentHolder. setConfigPath ("/root/models/data-agent-config.xml");
         DataPublisherUtil.setTrustStoreParams();
         //dataPublisher =  new  DataPublisher(url, username, password);
@@ -80,6 +83,8 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
 
         Event event = new Event(streamId, System.currentTimeMillis(), metaDataArray, correlationdataArray, payloadDataArray);
        dataPublisher.publish(event);
+        _collector.ack(tuple);
+
 
     }
 
