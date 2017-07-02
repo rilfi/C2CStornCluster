@@ -38,7 +38,7 @@ public class RT_Das_rich_Bolt extends BaseRichBolt {
         DataPublisherUtil.setTrustStoreParams();
         //dataPublisher =  new  DataPublisher(url, username, password);
         protocol = "thrift";
-        host = "localhost";
+        host = "192.248.8.248";
         port = "7611";
         username = "admin";
         password = "admin";
