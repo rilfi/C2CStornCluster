@@ -37,7 +37,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
     public void execute(Tuple tuple) {
         count++;
         Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
-        String tags[]={"MOD","STA","GRO","BRA","CAT"};
+        String tags[]={"MSG","MOD","STA","GRO","BRA","PRO"};
         List<String> tlist= Arrays.asList(tags);
 
         String line="";
