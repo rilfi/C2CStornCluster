@@ -23,10 +23,11 @@ public class C2CStormTopology {
     //builder.setBolt("State", new State_rich_Bolt(),1 ).shuffleGrouping("B_NER");
 
    builder.setBolt("Model", new Model_NER_rich_Bolt(), 1).shuffleGrouping("B_NER");
-    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Model");
 
-    //  builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Model");
-  //  builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
+     builder.setBolt("Group", new Group_rich_Bolt(), 1).shuffleGrouping("Model");
+    builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
+
+    //  builder.setBolt("persist", new Persist_rich_Bolt(), 1).shuffleGrouping("Group");
 
 
 

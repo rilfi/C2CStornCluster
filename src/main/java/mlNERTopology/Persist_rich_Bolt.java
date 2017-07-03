@@ -9,6 +9,8 @@ import org.apache.storm.tuple.Tuple;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ public class Persist_rich_Bolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this._collector = outputCollector;
         try {
-            writer=new BufferedWriter(new FileWriter("tags4.out"));
+            writer=new BufferedWriter(new FileWriter("tags5.out"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,14 +38,19 @@ public class Persist_rich_Bolt extends BaseRichBolt {
         count++;
         Map<String,String> returnMap= (Map<String, String>) tuple.getValueByField("returnMap");
         String tags[]={"MOD","STA","GRO","BRA","CAT"};
+        List<String> tlist= Arrays.asList(tags);
 
         String line="";
 
         for (String tag:returnMap.keySet()) {
+            if(tlist.contains(tag)){
+                continue;
+            }
+
             String key = tag + ":"+returnMap.get(tag);
 
 
-            line=line+key+"; ";
+            line=line+key+": ";
 
 
         }
